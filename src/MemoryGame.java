@@ -10,8 +10,7 @@ public class MemoryGame {
     //Attributes
     private SingleLinkedList SLL1;
     private SingleLinkedList SLL2;
-    private  SingleLinkedList SLL3;
-    private  SingleLinkedList SLL4;
+    private DoubleLinkedList SLL3;
     private Integer PairNumber;
     private Integer Score;
     private  Integer StepNumber;
@@ -77,19 +76,20 @@ public class MemoryGame {
         System.out.println(" ");
         System.out.print("Enter the n ( 1-" + SLL1.size() +" ):" );
         int pair = scanner.nextInt();
+        scanner.nextLine();
         while (pair>SLL1.size() || pair<=0){
             System.out.println(" ");
             System.out.println("!!!Incorrect Input!!!");
             System.out.print("Enter the n ( 1-" + SLL1.size() +" ):" );
             pair = scanner.nextInt();
+            scanner.nextLine();
         }
-        Scanner scanner2 = new Scanner(System.in);
         System.out.println(" ");
         System.out.print("Enter your name: ");
-        String name = scanner2.nextLine();
+        String name = scanner.nextLine();
         setPairNumber(pair);
         System.out.println(" ");
-
+        scanner.close();
         //SLL2 oluşturmadan önce SLL1 üzerindeki işlemler
         Random rnd =new Random();
         SingleLinkedList tempSLL = SLL1.copy();
