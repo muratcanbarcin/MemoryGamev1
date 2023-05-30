@@ -19,8 +19,7 @@ public class MemoryGame {
     public MemoryGame() {  //Constructor
         SLL1 = new SingleLinkedList();
         SLL2 = new SingleLinkedList();
-        SLL3 = new SingleLinkedList();
-        SLL4 = new SingleLinkedList();
+        SLL3 = new DoubleLinkedList();
         PairNumber = 0;
         Score = 0;
         StepNumber = 1;
@@ -190,25 +189,24 @@ public class MemoryGame {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while ((lineHigh = br.readLine()) != null) {
                 String[] highScoreArr = lineHigh.split(" ");
-                SLL3.unsortedAdd(highScoreArr[0]);
-                SLL4.unsortedAdd(highScoreArr[1]);
-
+                SLL3.add(highScoreArr[0]);
+                SLL3.add(highScoreArr[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         //Kullanıcıdan alınan verilerin SLL3 ve SLL4'e atanması
-        SLL3.unsortedAdd(name);
+        SLL3.add(name);
         String score = Integer.toString(getScore());
-        SLL4.unsortedAdd(score);
+        SLL3.add(score);
 
-        SLL4 = SLL4.sort();
+        SLL3.sorted();
         //High Score Table ayarlanması ve yazdırılması
         System.out.println();
         System.out.println("High Score Table:");
         System.out.println();
-        displayHighScore();
+        SLL3.display();
 
         //HighScoreTable.txt'e gerekli eklemelerin yapılması
         String fileName = "highscoretable.txt";
@@ -224,28 +222,4 @@ public class MemoryGame {
         }
 
     }
-
-
-    //High Score Table yazdırılması
-    public void displayHighScore(){
-        int counter = 0;
-        if (SLL4.head ==null){
-            System.out.println("Linked list is empty");
-        }
-        else {
-            Node temp = SLL4.head;
-            Node temp2 = SLL3.head;
-            while (temp != null && counter <13){
-                counter++;
-                if (temp2.getData() == "" || temp.getData() ==""){
-                    System.out.println(" ");
-                    break;
-                }
-                System.out.println(temp2.getData()+ "        " + temp.getData());
-                temp = temp.getLink();
-                temp2 = temp2.getLink();
-            }
-        }
-    }
-
 }
